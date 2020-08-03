@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+	<th:block th:include="~{layouts/main.html}"></th:block>
+	<title th:text="|View Post - ${post.title}|">View Post</title>
+</head>
+<style>
+	.frame{
+		width: 91%;
+		padding-left: 120px;
+	}
+
+</style>
+<body>
+<div class="frame">
+	<div layout:fragment="content">
+	
+		<ol class="breadcrumb">
+			<li><a th:href="@{/home}">Home</a></li>
+			<li><a th:href="@{/posts/list}">Posts</a></li>
+			<li class="active" th:text="${post.title}"></li>
+		</ol>
+	
+	    <article>
+			<header>
+				<h2 th:text="${post.title}">title</h2>
+				<p th:text="${#calendars.format(post.postedOn,'M/dd/yyyy hh:mm a')}">postedOn</p>
+			</header>
+			<section th:utext="${post.body}">
+				body
+			</section>
+			<footer>
+				<address>
+					Posted By <a th:href="|mailto:${post.author.email}|"> <span th:text="|${post.author.firstName} ${post.author.lastName}|">author</span></a>
+				</address>
+			</footer>
+			<hr/>
+		</article>
+
+
+		<div >
+
+			<div class="row"><h2 class="col-md-12 bold text-center">Comments:</h2></div>
+
+
+			<div  class="row">
+				<form  th:object="${post}" th:href="|/posts/view/${post.slug}|" th:method="POST">
+					<input type="hidden" th:field="*{slug}" />
+					<input class="col-md-6 margintop30" placeholder="Comment" name="comment" />
+<!--					<input type="text" class="form-control" />-->
+					<div class="col-md-1">
+						<button class="btn btn-primary margintop30" type="submit">Comment</button>
+					</div>
+				</form>
+			</div>
+
+
+			<div th:if="${post.comments}" th:each="com : ${post.comments}">
+
+				<div class="row">
+					<div class="grooveBorder">
+
+
+						<div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${com.user.username}" th:text="${com.user.username}"></a></div>
+
+						<div class="col-md-6"><b>Date Commented : <span th:text="${com.date}"></span></b></div>
+
+						<div class="row">
+							<div class="col-md-7 show-white-spaces" th:text="${com.comment}"></div>
+
+							<div th:if="${com.user}" class="col-md-1">
+								<button class="reply btn btn-info">Reply</button>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- Reply form -->
+					<div th:if="${com.user}" class="row">
+						<div class="reply-comment">
+
+
+							<form method="post">
+								<textarea class="col-md-6 margintop30" placeholder="Reply" name="reply"></textarea>
+								<input type="hidden" th:value="${com.id}" name="commentForReply"/>
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+								<div class="col-md-1">
+									<button class="btn btn-primary margintop30" type="submit">Reply</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+
+					<!-- Replies of current comment -->
+					<div th:if="${com.replies}">
+						<div class="row" th:each="reply : ${com.replies}">
+
+
+
+								<div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${reply.author.userUrl}" th:text="${reply.user.username}"></a></div>
+
+								<div class="col-md-4"><b>Date Commented : <span th:text="${reply.date}"></span></b></div>
+
+								<div class="row">
+									<div class="col-md-8 show-white-spaces" th:text="${reply.reply}">></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+
+		</div>
+
+	</div>
+</div>
+		
+</body>
+</html>
