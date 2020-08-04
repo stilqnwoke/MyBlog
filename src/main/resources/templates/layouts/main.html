@@ -32,6 +32,23 @@
 
 	}
 
+	.wName {
+		text-decoration: none;
+		color: #828282;
+	}
+	.wName:hover,
+	.wName:focus{
+		color: #c6e2ff;
+		text-shadow: 0 0 2px rgba(202, 228, 225, 0.92),
+		0 0 10px rgba(202, 228, 225, 0.34),
+		0 0 4px rgba(153, 0, 153, 0.52),
+		0 0 7px rgba(153, 0, 153, 0.92),
+		0 0 11px rgba(153, 0, 153, 0.78),
+		0 0 16px rgba(153, 0, 153, 0.92);
+	}
+
+
+
 	a{
 		color: #828282;
 		text-decoration: none;
@@ -87,7 +104,7 @@
 				        </li>					        
 				    </ul>
 				    <div class="navbar-text navbar-right">
-			            Welcome <span sec:authentication="name">Guest</span> | 
+			            Welcome <span class="wName" sec:authentication="name">Guest</span> |
 				    	<form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/users/logout}"  class="form-inline">
 				    		<a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;">Logout</a>
 				    	</form>
