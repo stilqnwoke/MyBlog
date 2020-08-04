@@ -3,27 +3,32 @@ package develop.site.web;
 import develop.site.model.entity.Comment;
 import develop.site.model.entity.Post;
 import develop.site.model.entity.UserEntity;
+import develop.site.repository.CommentRepository;
 import develop.site.service.CommentService;
 import develop.site.service.PostService;
 import develop.site.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Date;
 
 @Controller
 @RequestMapping("/posts")
 public class PostController {
 
+    private final CommentRepository commentRepository;
     private final CommentService commentService;
     private final UserService userService;
     private final PostService postService;
 
     @Autowired
-    public PostController(CommentService commentService, UserService userService, PostService postService) {
+    public PostController(CommentRepository commentRepository, CommentService commentService, UserService userService, PostService postService) {
+        this.commentRepository = commentRepository;
         this.commentService = commentService;
         this.userService = userService;
         this.postService = postService;
@@ -46,18 +51,32 @@ public class PostController {
         model.addAttribute("posts", postService.listByAuthor(id));
         return "post/list";
     }
-
-    @RequestMapping(value = "/posts/view/", method = RequestMethod.POST)
-    public String postCommentOrReply(Comment comment, Model model){
-
-        model.addAttribute("comment", new Comment());
 //
-////            commentForSave.setDate("12/18/2015 12:00:00");
-////            commentForSave.setUser(user);
-//            commentForSave.setComment("ccc");
-//            commentForSave.setPost(post);
+//    @RequestMapping("/posts/view/{slug}")
+//    public String create(Model model,@PathVariable String slug) {
+//        model.addAttribute("comment", new Comment());
+//
+//        return "/posts/view/" + {slug};
+//    }
 
-        commentService.saveComment(comment);
+    @RequestMapping(value = "/posts/view/{slug}", method = RequestMethod.POST)
+    public String postCommentOrReply(@PathVariable String slug,Comment comment, Model model){
+
+//        Date date = new Date();
+//        UserEntity user = new UserEntity();
+//        Post post = new Post();
+//        Comment commentForSave = new Comment();
+//        commentForSave.setDate(date);
+//        commentForSave.setUser(user);
+//        commentForSave.setComment("aaaaa");
+//        commentForSave.setPost(post);
+
+//        model.addAttribute("comment", commentForSave);
+
+
+
+
+//        commentRepository.save(commentForSave);
         return "redirect:/posts/view/" + comment.getPost().getSlug();
 
 
@@ -90,5 +109,10 @@ public class PostController {
 //        }
 //
 //        return "redirect:/posts/view/" + id;
+    }
+
+    @GetMapping("/theme")
+    public String theme(){
+        return "theme-switcher";
     }
 }

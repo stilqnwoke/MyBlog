@@ -46,8 +46,7 @@
 
 
 			<div  class="row">
-				<form  th:object="${post}" th:href="|/posts/view/${post.slug}|" th:method="POST">
-					<input type="hidden" th:field="*{slug}" />
+				<form  th:object="${post.comments}" th:action="|/posts/view/${post.slug}|" th:method="POST">
 					<input class="col-md-6 margintop30" placeholder="Comment" name="comment" />
 <!--					<input type="text" class="form-control" />-->
 					<div class="col-md-1">

@@ -62,7 +62,7 @@ public class DataLoader {
 
     private void createComments() {
         Date date = new Date();
-        Comment comment = new Comment("sadsa", date);
+        Comment comment = new Comment("sa", date);
         commentRepository.save(comment);
 
 

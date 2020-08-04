@@ -1,20 +1,25 @@
-/*.navbar {*/
-/*    margin-top:20px;*/
-/*}*/
+.navbar {
+    margin-top:20px;
+    color: black;
+}
 
-/*header h1 {*/
-/*    font-family: 'Exo', sans-serif;*/
-/*    font-size: 38px;*/
-/*}*/
+.container-fluid{
+    color: black;
+}
 
-/*p, address, section {*/
-/*    font-family: 'Roboto', sans-serif;*/
-/*}*/
+header h1 {
+    font-family: 'Exo', sans-serif;
+    font-size: 38px;
+}
 
-/*address {*/
-/*    margin-top:20px;*/
-/*}*/
+p, address, section {
+    font-family: 'Roboto', sans-serif;
+}
 
-/*#frmlogout {*/
-/*    display:inline;*/
-/*}*/
+address {
+    margin-top:20px;
+}
+
+#frmlogout {
+    display:inline;
+}
