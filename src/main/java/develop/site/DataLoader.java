@@ -57,6 +57,8 @@ public class DataLoader {
         authorRepository.save(av);
         Author kv = new Author("Stefan","Konn","skonn@gmail.com");
         authorRepository.save(kv);
+        Author tv = new Author("Kolin","Kent","kkent@gmail.com");
+        authorRepository.save(tv);
 
     }
 
