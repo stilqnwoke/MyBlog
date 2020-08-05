@@ -9,10 +9,90 @@
 <body>
 
 <style>
+
+	body, html {
+		height: 100%;
+		margin: 0;
+	}
+
+	html {
+		font-size: 16px;
+	}
+
+
+	body {
+		font-family: "Century Gothic", cursive;
+		font-size: 1rem;
+		background-image: url("https://www.dropbox.com/s/2ct0i6kc61vp0bh/wall.jpg?raw=1");
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+
+	}
+
+	p{
+		color: white;
+		font-family: "Century Gothic", cursive;
+		font-size: 17px;
+	}
+
+	tr:nth-child(even) {
+		color: white;
+		font-family: "Century Gothic", cursive;
+		font-size: 17px;
+	}
+
+	h2 {
+		min-height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.5rem;
+		text-align: center;
+		line-height: 1;
+		color: #c6e2ff;
+		animation: neon .08s ease-in-out infinite alternate;
+		padding-bottom: 10px;
+	}
+
+
+
+
+	@keyframes neon {
+		from {
+			text-shadow:
+					0 0 6px rgba(202,228,225,0.92),
+					0 0 30px rgba(202,228,225,0.34),
+					0 0 12px rgba(192,192,192,0.52),
+					0 0 21px rgba(192,192,192,0.92),
+					0 0 34px rgba(192,192,192,0.78),
+					0 0 54px rgba(192,192,192,0.92);
+		}
+		to {
+			text-shadow:
+					0 0 6px rgba(202,228,225,0.98),
+					0 0 30px rgba(202,228,225,0.42),
+					0 0 12px rgba(192,192,192,0.58),
+					0 0 22px rgba(192,192,192,0.84),
+					0 0 38px rgba(192,192,192,0.88),
+					0 0 60px rgba(192,192,192,1);
+		}
+	}
+
+	section{
+		color: white;
+		font-family: "Century Gothic", cursive;
+		font-size: 17px;
+	}
 	.frame{
 		width: 91%;
 		padding-left: 120px;
 	}
+	p.mess{
+		color: darkred;
+	}
+
 
 </style>
 
@@ -22,7 +102,7 @@
 	<h2>Posts</h2>
 
 	<div th:if="${message}" class="alert alert-success" role="alert">
-		<p th:text="${message}">success message</p>
+		<p class="mess" th:text="${message}">success message</p>
 	</div>
 
 	<table class="table table-striped">

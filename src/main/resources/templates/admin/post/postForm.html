@@ -103,6 +103,14 @@
 		color: white;
 	}
 
+
+
+	textarea.form-control{
+		color: white;
+
+	}
+
+
 	.form-horizontal{
 		width: 91%;
 		padding-left: 0px;
@@ -115,6 +123,23 @@
 		border-radius: 20px;
 		margin-bottom: 20px;
 		background: rgba(255,255,255,.2);
+	}
+
+	.btn{
+		font-weight: 700;
+		text-transform: uppercase;
+		font-size: 13px;
+		text-align: center;
+		width: 50%;
+		color: #ffffff;
+		padding-top: 3px;
+		height: 35px;
+		border: none;
+		border-radius: 20px;
+		background-color: dimgray;
+		cursor: pointer;
+		margin-left: 60px;
+		display: block;
 	}
 
 </style>
@@ -164,9 +189,9 @@
 		<div th:class="form-group" th:classappend="${#fields.hasErrors('author')}? 'has-error'">
 			<label class="col-sm-2 control-label">Author <span class="required">*</span></label>
 			<div class="col-md-10">
-				<select class="form-control" th:field="*{author.id}">
-					<option value="">Select Author</option>
-					<option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName + ' ' + author.lastName}">Authors</option>
+				<select required class="form-control" th:field="*{author.id}" >
+					<option  value="">Select Author</option>
+					<option  th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName + ' ' + author.lastName}">Authors</option>
 				</select>
 				<span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" th:class="help-block">Author Errors</span>
 			</div>
