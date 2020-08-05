@@ -47,6 +47,37 @@
 		0 0 16px rgba(153, 0, 153, 0.92);
 	}
 
+	.navbar-brand {
+		--interval: 1s;
+		display: block;
+		text-shadow:
+				0 0 10px var(--color1),
+				0 0 20px var(--color2),
+				0 0 40px var(--color3),
+				0 0 80px var(--color4);
+		will-change: filter, color;
+		filter: saturate(60%);
+		animation: flicker steps(100) var(--interval) 1s infinite;
+	}
+
+
+
+	.navbar-brand {
+		color: tomato;
+		--color1: orangered;
+		--color2: firebrick;
+		--color3: maroon;
+		--color4: darkred;
+		font-family: serif;
+	}
+
+
+	@keyframes flicker {
+		50% {
+			color: white;
+			filter: saturate(200%) hue-rotate(20deg);
+		}
+	}
 
 
 	a{
@@ -78,7 +109,7 @@
 		<nav class="navbar navbar-default">
 		    <div class="container-fluid">
 		        <div class="navbar-header">
-		            <a class="navbar-brand" th:href="@{/home}">STK</a>
+		            <a class="navbar-brand" th:href="@{/home}">COFFEE THOUGHTS</a>
 		        </div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				    <ul class="nav navbar-nav">
