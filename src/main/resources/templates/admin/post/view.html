@@ -29,6 +29,31 @@
 
 	}
 
+
+	label{
+		--interval: 1s;
+		display: block;
+		text-shadow:
+				0 0 10px var(--color1),
+				0 0 20px var(--color2),
+				0 0 40px var(--color3),
+				0 0 80px var(--color4);
+		will-change: filter, color;
+		filter: saturate(60%);
+		animation: flicker steps(100) var(--interval) 1s infinite;
+	}
+
+
+
+	label {
+		color: tomato;
+		--color1: orangered;
+		--color2: firebrick;
+		--color3: maroon;
+		--color4: darkred;
+		font-family: serif;
+	}
+
 	p{
 		color: white;
 		font-family: "Century Gothic", cursive;
@@ -88,7 +113,24 @@
 		font-family: "Century Gothic", cursive;
 		font-size: 17px;
 	}
+	.back{
+		color: burlywood;
+		text-decoration: none;
 
+
+
+	}
+	.back:hover,
+	.back:focus{
+		color: #c6e2ff;
+		text-shadow: 0 0 2px rgba(202, 228, 225, 0.92),
+		0 0 10px rgba(202, 228, 225, 0.34),
+		0 0 4px rgba(30, 132, 242, 0.52),
+		0 0 7px rgba(30, 132, 242, 0.92),
+		0 0 11px rgba(30, 132, 242, 0.78),
+		0 0 16px rgba(30, 132, 242, 0.92);
+	}
+	
 
 
 </style>
@@ -147,7 +189,7 @@
 		</div>
 	</form>
 
-	<a th:href="@{/admin/posts/}">Back To Posts List</a>
+	<a class="back" th:href="@{/admin/posts/}">Back To Posts List</a>
 	<br/><br/><br/>
 
 </div>
