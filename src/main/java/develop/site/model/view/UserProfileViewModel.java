@@ -1,4 +1,4 @@
-package develop.site.model;
+package develop.site.model.view;
 
 public class UserProfileViewModel {
 

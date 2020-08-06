@@ -1,19 +1,29 @@
-package develop.site.model.service;
+package develop.site.model.view;
+
+import develop.site.model.service.RoleServiceModel;
 
 import java.util.Set;
 
-public class UserServiceModel extends BaseServiceModel{
-
+public class UserAllViewModel {
+    private String id;
     private String username;
     private String password;
     private String email;
-    private Set<RoleServiceModel> authorities;
+    private Set<String> authorities;
 
-    public UserServiceModel() {
+    public UserAllViewModel() {
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -21,7 +31,7 @@ public class UserServiceModel extends BaseServiceModel{
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -29,19 +39,18 @@ public class UserServiceModel extends BaseServiceModel{
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public Set<RoleServiceModel> getAuthorities() {
+    public Set<String> getAuthorities() {
         return this.authorities;
     }
 
-    public void setAuthorities(Set<RoleServiceModel> authorities) {
+    public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
     }
 }
-

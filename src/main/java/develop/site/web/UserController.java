@@ -1,6 +1,7 @@
 package develop.site.web;
 
-import develop.site.model.UserProfileViewModel;
+import develop.site.model.view.UserAllViewModel;
+import develop.site.model.view.UserProfileViewModel;
 import develop.site.model.binding.UserEditBindingModel;
 import develop.site.model.binding.UserLoginBindingModel;
 import develop.site.model.binding.UserRegisterBindingModel;
@@ -19,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/users")
@@ -142,7 +146,24 @@ public class UserController {
         return new ModelAndView( "redirect:profile");
     }
 
+    @GetMapping("all")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView allUsers(ModelAndView modelAndView){
 
+        List<UserAllViewModel> users = this.userService.findAllUsers()
+                .stream()
+                .map(u -> {
+                    UserAllViewModel user = this.modelMapper.map(u, UserAllViewModel.class);
+                    user.setAuthorities(u.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toSet()));
+                    return user;
+                })
+                .collect(Collectors.toList());
+        
+        modelAndView.addObject("users", users);
+        modelAndView.setViewName("all");
+
+        return modelAndView;
+    }
 
     @GetMapping("/logout")
     public String logout(HttpSession httpSession){
