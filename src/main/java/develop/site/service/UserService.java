@@ -15,4 +15,6 @@ public interface UserService extends UserDetailsService {
 
     UserEntity getAuthenticatedUser();
 
+    UserServiceModel findUserByUserName(String username);
+
 }

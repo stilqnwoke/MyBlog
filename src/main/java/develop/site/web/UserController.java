@@ -1,19 +1,23 @@
 package develop.site.web;
 
+import develop.site.model.UserProfileViewModel;
 import develop.site.model.binding.UserLoginBindingModel;
 import develop.site.model.binding.UserRegisterBindingModel;
 import develop.site.model.service.UserServiceModel;
 import develop.site.service.UserService;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/users")
@@ -94,6 +98,38 @@ public class UserController {
         return "redirect:login";
 
     }
+
+    @GetMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView profile(Principal principal, ModelAndView modelAndView){
+        modelAndView.
+                addObject("model", this.modelMapper.map
+                        (this.userService.findUserByUserName(principal.getName()), UserProfileViewModel.class));
+
+        modelAndView.setViewName("profile");
+        return modelAndView;
+    }
+
+
+    @GetMapping("/edit")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView editProfile(Principal principal, ModelAndView modelAndView){
+        modelAndView.
+                addObject("model", this.modelMapper.map
+                        (this.userService.findUserByUserName(principal.getName()), UserProfileViewModel.class));
+
+        modelAndView.setViewName("edit");
+
+        return modelAndView;
+    }
+
+    @PatchMapping("/edit")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView editProfileConfirm(Principal principal, ModelAndView modelAndView){
+
+    }
+
+
 
     @GetMapping("/logout")
     public String logout(HttpSession httpSession){
