@@ -11,11 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
         this.roleService = roleService;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
+
     }
 
 
@@ -83,6 +84,25 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByUsername(username)
                 .map(u -> this.modelMapper.map(u, UserServiceModel.class))
                 .orElseThrow(()-> new UsernameNotFoundException("Username not found!"));
+    }
+
+    @Override
+    public UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword) {
+        UserEntity user = this.userRepository.findByUsername
+                (userServiceModel.getUsername())
+                .orElseThrow(()-> new UsernameNotFoundException("Username not found!"));
+
+        if (!this.passwordEncoder.matches(oldPassword, user.getPassword())){
+            throw new IllegalArgumentException("Incorrect password");
+        }
+
+        user.setPassword(!"".equals(userServiceModel.getPassword()) ?
+                this.passwordEncoder.encode(userServiceModel.getPassword()) :
+                user.getPassword());
+
+        user.setEmail(userServiceModel.getEmail());
+
+        return this.modelMapper.map(this.userRepository.saveAndFlush(user),UserServiceModel.class);
     }
 
 

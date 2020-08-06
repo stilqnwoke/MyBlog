@@ -1,6 +1,7 @@
 package develop.site.web;
 
 import develop.site.model.UserProfileViewModel;
+import develop.site.model.binding.UserEditBindingModel;
 import develop.site.model.binding.UserLoginBindingModel;
 import develop.site.model.binding.UserRegisterBindingModel;
 import develop.site.model.service.UserServiceModel;
@@ -25,6 +26,7 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+
 
     public UserController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
@@ -123,10 +125,21 @@ public class UserController {
         return modelAndView;
     }
 
-    @PatchMapping("/edit")
+    @PostMapping("/edit")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView editProfileConfirm(Principal principal, ModelAndView modelAndView){
+    public ModelAndView editProfileConfirm(@ModelAttribute UserEditBindingModel model, ModelAndView modelAndView){
 
+
+        if (!model.getPassword().equals(model.getConfirmPassword())) {
+            return new ModelAndView( "redirect:edit");
+        }
+
+        this.userService.editUserProfile(this.modelMapper.map(model, UserServiceModel.class)
+                , model.getOldPassword());
+
+
+
+        return new ModelAndView( "redirect:profile");
     }
 
 
