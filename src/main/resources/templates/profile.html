@@ -3,21 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <th:block th:include="~{layouts/main.html}"></th:block>
 </head>
 <body>
+<style>
+
+    html {
+        font-size: 16px;
+    }
+
+
+    body {
+        font-family: "Century Gothic", cursive;
+        font-size: 1rem;
+        background-image: url("https://www.dropbox.com/s/2ct0i6kc61vp0bh/wall.jpg?raw=1");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+    }
+
+    .jumbotron {
+        font-family: "Century Gothic", cursive;
+        font-size: 1rem;
+        background-image: url("https://www.dropbox.com/s/2ct0i6kc61vp0bh/wall.jpg?raw=1");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+    }
+
+    p{
+        color: white;
+        font-family: "Century Gothic", cursive;
+        font-size: 17px;
+    }
+
+
+
+    h2 {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        text-align: center;
+        line-height: 1;
+        color: #c6e2ff;
+        animation: neon .08s ease-in-out infinite alternate;
+        padding-bottom: 10px;
+    }
+
+    .date{
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+        color: #c6e2ff;
+        animation: neon .08s ease-in-out infinite alternate;
+        padding-bottom: 10px;
+
+    }
+
+
+    @keyframes neon {
+        from {
+            text-shadow:
+                    0 0 6px rgba(202,228,225,0.92),
+                    0 0 30px rgba(202,228,225,0.34),
+                    0 0 12px rgba(192,192,192,0.52),
+                    0 0 21px rgba(192,192,192,0.92),
+                    0 0 34px rgba(192,192,192,0.78),
+                    0 0 54px rgba(192,192,192,0.92);
+        }
+        to {
+            text-shadow:
+                    0 0 6px rgba(202,228,225,0.98),
+                    0 0 30px rgba(202,228,225,0.42),
+                    0 0 12px rgba(192,192,192,0.58),
+                    0 0 22px rgba(192,192,192,0.84),
+                    0 0 38px rgba(192,192,192,0.88),
+                    0 0 60px rgba(192,192,192,1);
+        }
+    }
+
+    section{
+        color: white;
+        font-family: "Century Gothic", cursive;
+        font-size: 17px;
+    }
+
+    .infos{
+        --interval: 1s;
+        display: block;
+        text-shadow:
+                0 0 10px var(--color1),
+                0 0 20px var(--color2),
+                0 0 40px var(--color3),
+                0 0 80px var(--color4);
+        will-change: filter, color;
+        filter: saturate(60%);
+        animation: flicker steps(100) var(--interval) 1s infinite;
+    }
+
+
+
+    .infos {
+        color: tomato;
+        --color1: orangered;
+        --color2: firebrick;
+        --color3: maroon;
+        --color4: darkred;
+        font-family: serif;
+    }
+
+
+
+
+</style>
+</body>
+
 <main class="mt-3">
     <div class="jumbotron bg-light">
         <div class="text-center">
-            <img src="https://res.cloudinary.com/rado-cloud/image/upload/v1553353764/manager-512.png" alt="profileImg">
+            <img src="https://res.cloudinary.com/rado-cloud/image/upload/v1553353764/manager-512.png" height="400" alt="profileImg">
         </div>
         <div class="row">
             <div class="col col-md-12 text-center">
-                <h1 th:text="${model.username}"></h1>
+                <h1 class="infos" th:text="${model.username}"></h1>
             </div>
         </div>
         <div class="row">
             <div class="col col-md-12 text-center">
-                <h4 th:text="${model.email}"></h4>
+                <h4 class="infos" th:text="${model.email}"></h4>
             </div>
         </div>
         <hr class="hr-2 bg-dark">
@@ -27,5 +146,5 @@
     </div>
 </main>
 
-</body>
+
 </html>

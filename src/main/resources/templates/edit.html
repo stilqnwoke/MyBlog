@@ -2,9 +2,65 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <th:block th:include="~{layouts/main.html}"></th:block>
     <title>Title</title>
+
 </head>
 <body>
+<style>
+    label {
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 13px;
+        padding-left: 15px;
+        padding-bottom: 10px;
+        color: rgba(255,255,255,.7);
+        display: block;
+    }
+    html {
+        font-size: 16px;
+    }
+
+
+    body {
+        font-family: "Century Gothic", cursive;
+        font-size: 1rem;
+        background-image: url("https://www.dropbox.com/s/2ct0i6kc61vp0bh/wall.jpg?raw=1");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+    }
+    .frame{
+        width: 91%;
+        padding-left: 120px;
+    }
+    .text-center.text-dark{
+        --interval: 1s;
+        display: block;
+        text-shadow:
+                0 0 10px var(--color1),
+                0 0 20px var(--color2),
+                0 0 40px var(--color3),
+                0 0 80px var(--color4);
+        will-change: filter, color;
+        filter: saturate(60%);
+        animation: flicker steps(100) var(--interval) 1s infinite;
+    }
+
+
+
+    .text-center.text-dark {
+        color: tomato;
+        --color1: orangered;
+        --color2: firebrick;
+        --color3: maroon;
+        --color4: darkred;
+        font-family: serif;
+    }
+
+</style>
+<div class="frame">
 <main class="mt-3">
     <h1 class="text-center text-dark">Edit Profile</h1>
     <hr class="hr-2 bg-dark w-25">
@@ -35,5 +91,6 @@
         </div>
     </form>
 </main>
+</div>
 </body>
 </html>

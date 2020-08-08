@@ -6,6 +6,7 @@ import develop.site.model.service.UserServiceModel;
 import develop.site.repository.UserRepository;
 import develop.site.service.RoleService;
 import develop.site.service.UserService;
+import org.apache.tomcat.jni.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -111,6 +112,27 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findAll().stream()
                 .map(u -> this.modelMapper.map(u, UserServiceModel.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void setUserRole(String id, String role) {
+        UserEntity user = this.userRepository.findById(id).
+                orElseThrow(()-> new IllegalArgumentException("Incorrect id!"));
+
+        UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
+
+        userServiceModel.getAuthorities().clear();
+        switch (role){
+            case "user":
+                userServiceModel.getAuthorities().add(this.roleService.findByName("ROLE_USER"));
+                break;
+            case "admin":
+                userServiceModel.getAuthorities().add(this.roleService.findByName("ROLE_USER"));
+                userServiceModel.getAuthorities().add(this.roleService.findByName("ROLE_ADMIN"));
+                break;
+        }
+
+        this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, UserEntity.class));
     }
 
 

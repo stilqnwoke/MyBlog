@@ -158,7 +158,7 @@ public class UserController {
                     return user;
                 })
                 .collect(Collectors.toList());
-        
+
         modelAndView.addObject("users", users);
         modelAndView.setViewName("all");
 
@@ -170,6 +170,22 @@ public class UserController {
         httpSession.invalidate();
 
         return "redirect:/home";
+    }
+
+    @PostMapping("/set-user/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView setUser(@PathVariable String id){
+        this.userService.setUserRole(id, "user");
+
+        return new ModelAndView( "redirect:/users/all");
+    }
+
+    @PostMapping("/set-admin/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView setAdmin(@PathVariable String id){
+        this.userService.setUserRole(id, "admin");
+
+        return new ModelAndView( "redirect:/users/all");
     }
 
 
