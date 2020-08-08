@@ -138,14 +138,24 @@
 		border-radius: 20px;
 		background-color: dimgray;
 		cursor: pointer;
-		margin-left: 0;
+		margin: 0 0 45px 290px;
 		display: block;
+
 	}
 
+select{
+	color: #fff!important;
+}
+
+select option{
+	background-color: #828282;
+}
+	
 </style>
 <body>
 <h2>Create New Post</h2>
-
+<div class="container">
+	<div class="row">
 	<form class="form-horizontal" th:object="${post}" th:action="@{/admin/post/save}" method="post">
 		<input type="hidden" th:field="*{id}" />
 		<div th:class="form-group" th:classappend="${#fields.hasErrors('title')}? 'has-error'">
@@ -210,8 +220,9 @@
 			</div>
 		</div>
 
-		<button type="submit" class="btn btn-primary center-block">Submit</button>
+		<button type="submit" class="btn btn-primary ">Submit</button>
 	</form>
-
+	</div>
+</div>
 </body>
 </html>
