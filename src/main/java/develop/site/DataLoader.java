@@ -3,6 +3,7 @@ package develop.site;
 import develop.site.model.entity.Author;
 import develop.site.model.entity.Comment;
 import develop.site.model.entity.Post;
+import develop.site.model.entity.UserEntity;
 import develop.site.repository.AuthorRepository;
 import develop.site.repository.CommentRepository;
 import develop.site.repository.PostRepository;
@@ -35,6 +36,7 @@ public class DataLoader {
 
         postRepository.deleteAll();
         authorRepository.deleteAll();
+        commentRepository.deleteAll();
 
         // create an author
         Author dv = new Author("Stilqn","Kon","stilk@gmail.com");
@@ -63,8 +65,17 @@ public class DataLoader {
     }
 
     private void createComments() {
-        Date date = new Date();
-        Comment comment = new Comment("sa", date);
+        Date yesterday = null;
+        try {
+            yesterday = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse("12/18/2015 12:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Comment comment = new Comment("sa");
+        comment.setDate( yesterday );
+        comment.setPost(comment.getPost());
+        comment.setUser(comment.getUser());
         commentRepository.save(comment);
 
 

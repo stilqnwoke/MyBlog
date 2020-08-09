@@ -16,7 +16,6 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
         String actionName = "";
 
         if( handler instanceof HandlerMethod) {
-            // there are cases where this handler isn't an instance of HandlerMethod, so the cast fails.
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             //controllerName = handlerMethod.getBean().getClass().getSimpleName().replace("Controller", "");
             controllerName  = handlerMethod.getBeanType().getSimpleName().replace("Controller", "");

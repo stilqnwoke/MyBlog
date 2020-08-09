@@ -24,9 +24,9 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String comment, Date date) {
+    public Comment(String comment) {
         this.comment = comment;
-        this.date = date;
+
     }
 
     private Date date = new Date();
@@ -38,6 +38,7 @@ public class Comment {
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     @OrderBy("date")
     private List<Reply> replies;
+
 
 
 
